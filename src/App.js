@@ -1,25 +1,29 @@
-import logo from './logo.svg';
-import './App.css';
+// --- third-party imports --- //
+import React from "react";
+import {Switch, Route} from "react-router-dom";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+// --- local imports --- //
+import Nav from "./components/Nav"
+import Home from "./components/Home"
+import About from "./components/About"
+import Count from "./components/Count"
+import Flags from "./components/Flags"
+import CountryDetails from "./components/CountryDetails"
+import "./App.css";
+
+const App = () => {
+    return (
+        <div>
+            <Nav/>
+            <Switch>
+                <Route exact path="/" component={Home}/>
+                <Route path="/about" component={About}/>
+                <Route path="/count" component={Count}/>
+                <Route path="/flags" component={Flags}/>
+                <Route path="/flag/:id" component={CountryDetails}/>
+            </Switch>
+        </div>
+    );
 }
 
 export default App;
