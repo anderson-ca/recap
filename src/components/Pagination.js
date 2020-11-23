@@ -1,6 +1,9 @@
-import React from "react";
+import React, {useState} from "react";
 
 const Pagination = () => {
+    const [offset, setOffsetValue] = useState(0);
+    const [data, setData] = useState([]);
+
     return (
         <div>
             <ul className="nav">

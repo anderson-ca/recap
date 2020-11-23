@@ -39,6 +39,7 @@ const Flags = () => {
                 <h2>Flag Header</h2>
             </div>
             <div>
+                {/*what values should I pass as props in order to paginate API call result? */}
                 <Pagination/>
             </div>
             <div id="flag-container">
