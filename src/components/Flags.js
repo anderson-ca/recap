@@ -6,32 +6,35 @@ import axios from "axios";
 
 const Flags = () => {
     // --- handling state --- //
-    const [flags, setFlags] = useState([])
-    const [page, setPage] = useState(1)
-    const [isLoading, setLoading] = useState(true)
-    const [isError, setError] = useState(false)
+    const [pageData, setPageData] = useState([]);
+    const [flags, setFlags] = useState([]);
+    const [page, setPage] = useState(1);
+    const [isLoading, setLoading] = useState(true);
+    const [isError, setError] = useState(false);
 
     // --- handling events --- //
     useEffect(() => {
-        console.log("use effect...")
+        console.log("use effect...");
         getFlags();
         return () => {
             // clean up method
         }
     }, []);
 
+
     const getFlags = async () => {
         try {
-            const response = await axios("https://restcountries.eu/rest/v2/all");
-            console.log(response);
-            setFlags(response.data)
-            setLoading(false)
+            const {data} = await axios("https://restcountries.eu/rest/v2/all");
+            setFlags(data);
+            setPageData(data);
+            setLoading(false);
         } catch (error) {
-            console.log(error)
-            setError(true)
+            console.log(error);
+            setError(true);
         }
 
     }
+
 
     return (
         <Fragment>
@@ -39,23 +42,22 @@ const Flags = () => {
                 <h2>Flag Header</h2>
             </div>
             <div>
-                {/*what values should I pass as props in order to paginate API call result? */}
-                <Pagination/>
+                <Pagination pageData={pageData}/>
             </div>
-            <div id="flag-container">
-                {isLoading ? (
-                    <BounceLoader/>
-                ) : (
-                    flags.map(({name, flag, alpha3Code}) => (
-                        <div className="country-card" key={alpha3Code}>
-                            <Link to={`/flag/${name}`}>
-                                <h5>{name}</h5>
-                                <img className="flag-img-card" src={flag} alt="flag"/>
-                            </Link>
-                        </div>
-                    ))
-                )}
-            </div>
+            {/*<div id="flag-container">*/}
+            {/*    {isLoading ? (*/}
+            {/*        <BounceLoader/>*/}
+            {/*    ) : (*/}
+            {/*        flags.map(({name, flag, alpha3Code}) => (*/}
+            {/*            <div className="country-card" key={alpha3Code}>*/}
+            {/*                <Link to={`/flag/${name}`}>*/}
+            {/*                    <h5>{name}</h5>*/}
+            {/*                    <img className="flag-img-card" src={flag} alt="flag"/>*/}
+            {/*                </Link>*/}
+            {/*            </div>*/}
+            {/*        ))*/}
+            {/*    )}*/}
+            {/*</div>*/}
         </Fragment>
     );
 }

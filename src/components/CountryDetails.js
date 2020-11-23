@@ -20,7 +20,7 @@ const CountryDetails = ({match}) => {
             const {data, status} = await axios(`https://restcountries.eu/rest/v2/name/${match.params.id}`)
             setCountryDetails(data[0]);
             setLoading(false);
-            console.log(data[0]);
+            console.log(data);
         } catch (error) {
             console.log(error)
         }
