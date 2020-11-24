@@ -3,7 +3,7 @@ import {Link} from "react-router-dom";
 
 const Pagination = ({pageData}) => {
     const [data, setData] = useState([]);
-    const [perPage, setPerPage] = useState(10);
+    const [perPage, setPerPage] = useState(5);
     const [currentPage, setCurrentPage] = useState(1);
     const maxPage = Math.ceil(pageData.length / perPage);
 
@@ -15,6 +15,20 @@ const Pagination = ({pageData}) => {
         }
 
     }, [pageData]);
+
+    useEffect(() => {
+        console.log("page - ", currentPage);
+        const begin = (currentPage - 1) * perPage;
+        const end = begin + perPage;
+        console.log("begin --> ", begin);
+        console.log("end --> ", end);
+        const dataChunk = pageData.slice(begin, end)
+        console.log("page content - ", dataChunk);
+        setData(dataChunk);
+        return () => {
+
+        }
+    }, [currentPage]);
 
     const onData = () => {
         const begin = (currentPage - 1) * perPage;
